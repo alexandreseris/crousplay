@@ -77,10 +77,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "crousplay.urls"
 
+GAMES_TEMPLATE = BASE_DIR / "games" / "templates"
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [GAMES_TEMPLATE],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
