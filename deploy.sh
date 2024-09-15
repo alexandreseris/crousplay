@@ -25,6 +25,7 @@ if [ -z "$CROUSPLAY_SU_CREATED" ]; then
     echo "CROUSPLAY_SECRET_KEY='TRUE'" > ~/.bashrc
 fi
 
+cd ..
 cat > "$WSGI_FILE" <<EOF
 from crousplay.wsgi import application
 EOF
