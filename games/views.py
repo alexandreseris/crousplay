@@ -98,3 +98,15 @@ def search_result(request: HttpRequest):
             request,
         )
     )
+
+
+def list_all(request: HttpRequest):
+    games = models.Game.all()
+    games_data = GameProperties.from_games(games)
+    template = loader.get_template("games/search.html")
+    return HttpResponse(
+        template.render(
+            {"games": games_data},
+            request,
+        )
+    )

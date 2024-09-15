@@ -15,6 +15,7 @@
                 <span class="brand-logo center">Résultats de votre recherche</span>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li><a href="/">Nouvelle recherche</a></li>
+                    <li><a href="/list">Tous les jeux</a></li>
                 </ul>
             </div>
         </nav>
@@ -79,11 +80,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card underline tag main_txt_color">
-                                <div class="card-content">
-                                    <p>{{ item.tag.name }}</p>
+                            {% if item.tag %}
+                                <div class="card underline tag main_txt_color">
+                                    <div class="card-content">
+                                        <p>{{ item.tag.name }}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </li>

@@ -167,8 +167,12 @@ class Game(models.Model):
         super().clean()
 
     @classmethod
+    def all(cls):
+        return cls.objects.order_by("name").all()
+
+    @classmethod
     def search(cls, players: int, duration: int, level: str, type: str, ambiances: list[str], genres: list[str]):
-        return cls.objects.filter(
+        return cls.objects.order_by("name").filter(
             min_number_of_player__lte=players,
             max_number_of_player__gte=players,
             min_duration__lte=duration,
