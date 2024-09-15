@@ -29,3 +29,21 @@ cd /var/www && cd crousplay && ./deploy.sh
 Si vous avez un compte gratuit pythonanywhere:
 
 - pensez à cliquer sur le bouton `Run until 3 months from today` depuis la page de configuration de l'appli web tous les trois mois (ou moins)
+
+## Dev
+
+```sh
+python -m venv venv # crée un environnement virtuel dans le dossier venv du répertoire courant
+pip install --editable .[dev]  # installe les dépendances (dev compris) en mode éditable
+python manage.py setup_fixtures  # créer les données de fixtures
+python manage.py makemigrations games  # crée les migrations de bdd
+python manage.py runserver  # lance le serveur de test
+```
+
+### Environnement
+
+```text
+CROUSPLAY_SECRET_KEY: string => utilisé en interne par django, mettez une chaine aléatoire de 32 charactères par ex
+CROUSPLAY_DEBUG: true|false [false] => permet de lancer l'appli en mode debug
+CROUSPLAY_LOG_SQL: true|false [false] => permet de logger les requetes SQL sur stdout
+```
