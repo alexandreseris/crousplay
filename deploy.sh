@@ -4,9 +4,8 @@ WSGI_FILE="/var/www/$(whoami)_pythonanywhere_com_wsgi.py"
 REPO_URL="https://github.com/alexandreseris/crousplay.git"
 
 
-cd /var/www
+cd /var/www/crousplay
 git pull --depth 1
-cd crousplay
 pip3.10 install .  # no venv, yolo
 python3.10 manage.py migrate
 
