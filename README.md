@@ -6,12 +6,10 @@ Appli web de recommandation de jeu de société
 
 - créer un compte sur <https://www.pythonanywhere.com>
 - créer une application  web sur le dashboard, avec configuration manuelle
-- créer une console bash, et exécuter les commandes suivantes:
+- créer une console bash, et exécuter les commandes suivantes (certaines informations vous seront demandées pour la création de l'accès admin et vous devrez également noter la clef secrète générée):
 
 ```sh
-cd /var/www;
-git clone --depth 1 -b "main" "https://github.com/alexandreseris/crousplay.git"
-cd crousplay && ./deploy.sh
+cd /var/www && git clone --depth 1 -b "main" "https://github.com/alexandreseris/crousplay.git" && cd crousplay && ./deploy.sh init
 ```
 
 - puis redémarrer l'application web depuis la page de configuration pythonanywhere
@@ -21,8 +19,7 @@ cd crousplay && ./deploy.sh
 - créer/reprendre une console bash et exécuter les commandes suivantes:
 
 ```sh
-cd /var/www;
-cd crousplay && ./deploy.sh
+cd /var/www && cd crousplay && ./deploy.sh
 ```
 
 - puis redémarrer l'application web depuis la page de configuration pythonanywhere

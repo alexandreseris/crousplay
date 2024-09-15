@@ -2,7 +2,13 @@
 
 WSGI_FILE="/var/www/$(whoami)_pythonanywhere_com_wsgi.py"
 
-cd /var/www/crousplay
+if [ -z "$1" ]; then
+    IS_INIT=0
+else
+    IS_INIT=1
+fi
+
+pushd /var/www/crousplay
 
 echo "----------------------------------------------------------"
 echo "----------------------------------------------------------"
@@ -13,19 +19,23 @@ git pull --depth 1
 
 echo "----------------------------------------------------------"
 echo "----------------------------------------------------------"
-echo "-- INSTALLATION DES DEPENDANCES"
+echo "-- INSTALLATION/MISE A JOUR DES DEPENDANCES"
 echo "----------------------------------------------------------"
 echo "----------------------------------------------------------"
 pip3.10 install .  # no venv, yolo
 
-if [ -z "$CROUSPLAY_SECRET_KEY" ]; then
-    export CROUSPLAY_SECRET_KEY=$(openssl rand -hex 32)
-    echo "CROUSPLAY_SECRET_KEY='$CROUSPLAY_SECRET_KEY'" > ~/.bashrc
+if [[ "$IS_INIT" == 1 ]]; then
+    CROUSPLAY_SECRET_KEY=$(openssl rand -hex 32)
     echo "----------------------------------------------------------"
     echo "----------------------------------------------------------"
     echo "Une clef secrète a été générée, veuillez la noter et la conserver: $CROUSPLAY_SECRET_KEY"
     echo "----------------------------------------------------------"
     echo "----------------------------------------------------------"
+
+    rm $WSGI_FILE 2> /dev/null
+    echo "import os" >> $WSGI_FILE
+    echo "os.environ['CROUSPLAY_SECRET_KEY'] = '$CROUSPLAY_SECRET_KEY'" >> $WSGI_FILE
+    echo "from crousplay.wsgi import application" >> $WSGI_FILE
 fi
 
 echo "----------------------------------------------------------"
@@ -35,7 +45,7 @@ echo "----------------------------------------------------------"
 echo "----------------------------------------------------------"
 python3.10 manage.py migrate
 
-if [ -z "$CROUSPLAY_SU_CREATED" ]; then
+if [[ "$IS_INIT" == 1 ]]; then
     echo "----------------------------------------------------------"
     echo "----------------------------------------------------------"
     echo "Super utilisateur inexistant, le programme de création d'utilisateur va être lancé"
@@ -43,11 +53,6 @@ if [ -z "$CROUSPLAY_SU_CREATED" ]; then
     echo "----------------------------------------------------------"
     echo "----------------------------------------------------------"
     python manage.py createsuperuser
-    export CROUSPLAY_SU_CREATED="TRUE"
-    echo "CROUSPLAY_SECRET_KEY='TRUE'" > ~/.bashrc
 fi
 
-cd ..
-cat > "$WSGI_FILE" <<EOF
-from crousplay.wsgi import application
-EOF
+popd
