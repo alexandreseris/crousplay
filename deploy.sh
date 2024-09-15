@@ -52,7 +52,7 @@ if [[ "$IS_INIT" == 1 ]]; then
     echo "Merci de répondre aux questions et bien prendre note de l'utilisateur et mot de passe qui sera utilisable pour l'accès à la page /admin"
     echo "----------------------------------------------------------"
     echo "----------------------------------------------------------"
-    python manage.py createsuperuser
+    python3.10 manage.py createsuperuser
 fi
 
 popd
