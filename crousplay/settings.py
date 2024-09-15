@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import getpass
 import os
 from pathlib import Path
 
@@ -48,6 +49,8 @@ if LOG_SQL:
 
 
 ALLOWED_HOSTS: list[str] = []
+if not DEBUG:
+    ALLOWED_HOSTS = [f"{getpass.getuser()}.pythonanywhere.com"]
 
 
 # Application definition
