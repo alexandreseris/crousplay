@@ -9,7 +9,7 @@ Appli web de recommandation de jeu de société
 - créer une console bash, et exécuter les commandes suivantes (certaines informations vous seront demandées pour la création de l'accès admin et vous devrez également noter la clef secrète générée):
 
 ```sh
-cd /var/www && git clone --depth 1 -b "main" "https://github.com/alexandreseris/crousplay.git" && cd crousplay && ./deploy.sh init
+cd /var/www && git clone "https://github.com/alexandreseris/crousplay.git" && cd crousplay && ./deploy.sh init
 ```
 
 - puis redémarrer l'application web depuis la page de configuration pythonanywhere
