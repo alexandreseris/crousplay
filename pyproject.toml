@@ -14,20 +14,18 @@ classifiers = ["Programming Language :: Python :: 3"]
 dynamic = ["version"]
 dependencies = ["Django==5.1.1"]
 
+[project.optional-dependencies]
+dev = ["mypy==1.11.2", "ruff==0.6.5", "django-stubs[compatible-mypy]==5.0.4"]
+
+[tool.setuptools]
+include-package-data = true
+package-dir = { "" = "." }
 
 [tool.setuptools.dynamic]
 version = { file = ["VERSION"] }
 
-[project.optional-dependencies]
-dev = ["mypy==1.11.2", "ruff==0.6.5", "django-stubs[compatible-mypy]==5.0.4"]
-
-
 [tool.setuptools.packages.find]
 where = ["."]
-
-[tool.setuptools]
-package-dir = { "" = "." }
-
 
 [tool.mypy]
 plugins = ["mypy_django_plugin.main"]

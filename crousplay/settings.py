@@ -26,7 +26,9 @@ SECRET_KEY = os.environ["CROUSPLAY_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("CROUSPLAY_DEBUG", "false").lower() == "true"
+
 LOG_SQL = os.getenv("CROUSPLAY_LOG_SQL", "false").lower() == "true"
+DONT_GENERATE_ALLOWED_HOSTS = os.getenv("CROUSPLAY_DONT_GENERATE_ALLOWED_HOSTS", "false").lower() == "true"
 
 if LOG_SQL:
     LOGGING = {
@@ -48,8 +50,9 @@ if LOG_SQL:
     }
 
 
-ALLOWED_HOSTS: list[str] = []
-if not DEBUG:
+if DONT_GENERATE_ALLOWED_HOSTS:
+    ALLOWED_HOSTS = []
+else:
     ALLOWED_HOSTS = [f"{getpass.getuser()}.pythonanywhere.com"]
 
 
@@ -77,12 +80,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "crousplay.urls"
 
-GAMES_TEMPLATE = BASE_DIR / "games" / "templates"
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [GAMES_TEMPLATE],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
