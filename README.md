@@ -11,7 +11,7 @@ Appli web de recommandation de jeu de société
 ```sh
 cd /var/www;
 git clone --depth 1 -b "main" "https://github.com/alexandreseris/crousplay.git"
-cd cropusplay && ./deploy.sh
+cd crousplay && ./deploy.sh
 ```
 
 - puis redémarrer l'application web depuis la page de configuration pythonanywhere
@@ -22,7 +22,7 @@ cd cropusplay && ./deploy.sh
 
 ```sh
 cd /var/www;
-cd cropusplay && ./deploy.sh
+cd crousplay && ./deploy.sh
 ```
 
 - puis redémarrer l'application web depuis la page de configuration pythonanywhere
