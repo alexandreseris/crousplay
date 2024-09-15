@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CROUS Play - Recherche</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="icon" href="data:;base64,=">
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-wrapper main_bk">
+                <span class="brand-logo center">Recherchez des jeux</span>
+            </div>
+        </nav>
+
+        <div class="row">
+            <form method="get" action="/result" class="col s12" id="searchform">
+                <div class="input-field">
+                    <label for="players">Nombre de joueur</label>
+                    <input id="players" name="players" class="validate" type="number" min="1" max="100" required />
+                </div>
+                <div class="input-field">
+                    <label for="duration">Durée (en minute)</label>
+                    <input id="duration" name="duration" class="validate" type="number" min="1" max="100" required />
+                </div>
+                <div class="input-field">
+                    <label for="level">Niveau des joueurs</label>
+                    <select id="level" name="level" required>
+                        <option value="" disabled selected>...</option>
+                        {% for item in levels %}
+                            <option value="{{ item.name }}">{{ item.name|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-field">
+                    <label for="type">Type de jeu</label>
+                    <select id="type" name="type" required>
+                        <option value="" disabled selected>...</option>
+                        {% for item in types %}
+                            <option value="{{ item.name }}">{{ item.name|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-field">
+                    <label for="ambiances">Ambiances recherchées</label>
+                    <select id="ambiances" name="ambiances" required multiple>
+                        {% for item in ambiances %}
+                            <option value="{{ item.name }}">{{ item.name|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-field">
+                    <label for="genres">Genres de jeu</label>
+                    <select id="genres" name="genres" required multiple>
+                        {% for item in genres %}
+                            <option value="{{ item.name }}">{{ item.name|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-field">
+                    <button class="btn waves-effect waves-light second_bk" type="submit">Rechercher</button>
+                    <span id="errormsg">Merci de renseigner tous les champs du formulaire</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const elems = document.querySelectorAll('select');
+        const instances = M.FormSelect.init(elems, {});
+
+        const searchForm = document.forms.namedItem("searchform")
+        const submitButton = document.querySelector("#searchform button")
+        if (searchForm && submitButton) {
+            submitButton.addEventListener("click", (event) => {
+                for (const element of searchForm.elements) {
+                    const parent = element.parentElement
+                    if (!parent) {
+                        continue
+                    }
+                    const actualInput = parent.querySelector("input")
+                    if (!actualInput) {
+                        continue
+                    }
+                    if (element.validity.valueMissing) {
+                        actualInput.classList.remove("valid")
+                        actualInput.classList.add("invalid")
+                    } else {
+                        actualInput.classList.remove("invalid")
+                        actualInput.classList.add("valid")
+                    }
+                }
+                if (searchForm.checkValidity()) {
+                    searchForm.submit()
+                    return
+                }
+                const errmsg = document.querySelector("#errormsg")
+                if (errmsg) {
+                    errmsg.style.display = "initial"
+                }
+            })
+        }
+    });
+</script>
+
+<style>
+    body {
+        --main-color: rgb(26, 36, 123);
+        --second-color: rgb(59, 196, 238);
+        --error-color: rgb(200, 0, 0);
+    }
+    .main_bk {
+        background-color: var(--main-color);
+    }
+    .second_bk {
+        background-color: var(--second-color);
+    }
+    .title {
+        text-align: center;
+    }
+
+    .input-field label {
+        position: relative;
+    }
+    #errormsg {
+        display: none;
+        padding-left: 3em;
+        color: var(--error-color);
+        font-weight: bold;
+    }
+</style>
+
+</html>

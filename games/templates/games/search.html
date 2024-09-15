@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CROUS Play - Votre recherche</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="icon" href="data:;base64,=">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-wrapper main_bk_color">
+                <span class="brand-logo center">Résultats de votre recherche</span>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="/">Nouvelle recherche</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <ul class="collection">
+            {% for item, props in games %}
+                <li class="collection-item">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="game_name main_txt_color">{{ item.name|title }}</div>
+                            <div class="editor second_txt_color">{{ item.editor.name|title }}</div>
+                            <div class="row">
+                                <div class="col s6 m6 l6">
+                                    <div class="row">
+                                        <div class="col s6 m6 l6">
+                                            <img class="box_img" src="{{ item.box_img }}" alt="Boite du jeu">
+                                        </div>
+                                        <div class="col s6 m6 l6"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s6 m6 l6"></div>
+                                        <div class="col s6 m6 l6">
+                                            <img class="box_content_img" src="{{ item.box_content_img }}" alt="Contenu de la boite">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s6 m6 l6">
+                                    <p class="notes main_txt_color">{{ item.notes }}</p>
+                                    <br>
+                                    <ul class="list_detail">
+                                        <li><span class="underline">{{ item.number_of_player }}</span></li>
+                                        <li>Durée: <span class="underline">{{ item.duration }}</span></li>
+                                        <li>Genre de jeu: <span class="underline">{{ item.genre_names }}</span></li>
+                                        <li>Ambiance de jeu: <span class="underline">{{ item.ambiance_names }}</span></li>
+                                    </ul>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col s6 m6 l6">
+                                            {% for level in props.levels %}
+                                                <label class="checkbox">
+                                                    {% if level.has %}
+                                                        <input type="checkbox" checked disabled />
+                                                    {% else %}
+                                                        <input type="checkbox" disabled />
+                                                    {% endif %}
+                                                    <span>{{ level.name }}</span>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col s6 m6 l6">
+                                            {% for type in props.types %}
+                                                <label class="checkbox">
+                                                    {% if type.has %}
+                                                        <input type="checkbox" checked disabled />
+                                                    {% else %}
+                                                        <input type="checkbox" disabled />
+                                                    {% endif %}
+                                                    <span>{{ type.name }}</span>
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card underline tag main_txt_color">
+                                <div class="card-content">
+                                    <p>{{ item.tag.name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+<style>
+    body {
+        --main-color: rgb(26, 36, 123);
+        --second-color: rgb(59, 196, 238);
+        --underline-color: rgb(172, 230, 249);
+    }
+    .main_bk_color {
+        background-color: var(--main-color);
+    }
+    .main_txt_color {
+        color: var(--main-color);
+    }
+    .second_txt_color {
+        color: var(--second-color);
+    }
+    .underline {
+        background-color: var(--underline-color);
+    }
+    .game_name {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: x-large;
+    }
+    .list_detail, .list_detail > li {
+        list-style-type: disc !important;
+    }
+    .list_detail > li::marker {
+        color: var(--second-color);
+    }
+    .editor {
+        font-size: larger;
+    }
+    .notes {
+        font-weight: bold;
+    }
+    .box_img {
+        object-fit: contain;
+        width: 200px;
+        height: 200px;
+    }
+    .box_content_img {
+        object-fit: contain;
+        width: 200px;
+        height: 200px;
+    }
+    .checkbox {
+        color: inherit !important;
+        display: block;
+    }
+    .checkbox > [type="checkbox"]:not(:checked)+span::before {
+        content: initial !important;
+    }
+    [type="checkbox"]:checked:disabled + span::before {
+        border-right: 2px solid var(--second-color);;
+        border-bottom: 2px solid var(--second-color);;
+    }
+    [type="checkbox"]:not(:checked):disabled + span:not(.lever)::before {
+        background-color: var(--second-color);
+    }
+    .tag {
+        width: 10em;
+    }
+</style>
+</html>
