@@ -1,6 +1,5 @@
 from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Self
 
 from django.core.exceptions import SuspiciousOperation
 from django.http import HttpRequest, HttpResponse, QueryDict
@@ -34,7 +33,7 @@ class SearchParam:
     genres: list[str]
 
     @classmethod
-    def from_querydict(cls, query: QueryDict) -> Self:
+    def from_querydict(cls, query: QueryDict):
         try:
             return cls(
                 players=int(query.getlist("players")[0]),

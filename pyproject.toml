@@ -1,23 +1,33 @@
-[tool.poetry]
-name = "crousplay"
-version = "0.1.0"
-description = ""
-authors = ["alexandreseris"]
-readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.10"
-django = "^5.1.1"
-
-
-[tool.poetry.group.dev.dependencies]
-django-stubs = { extras = ["compatible-mypy"], version = "^5.0.4" }
-mypy = "^1.11.2"
-ruff = "^0.6.5"
-
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "crousplay"
+authors = [{ name = "Alexandre Seris" }]
+description = "Appli web de recommandation de jeu de société "
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+classifiers = ["Programming Language :: Python :: 3"]
+dynamic = ["version"]
+dependencies = ["Django==5.1.1"]
+
+
+[tool.setuptools.dynamic]
+version = { file = ["VERSION"] }
+
+[project.optional-dependencies]
+dev = ["mypy==1.11.2", "ruff==0.6.5", "django-stubs[compatible-mypy]==5.0.4"]
+
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools]
+package-dir = { "" = "." }
+
 
 [tool.mypy]
 plugins = ["mypy_django_plugin.main"]

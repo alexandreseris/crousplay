@@ -1,5 +1,3 @@
-from typing import Self
-
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -17,7 +15,7 @@ class Level(models.Model):
     order = models.IntegerField(verbose_name="ordre", null=False, unique=True)
 
     @classmethod
-    def init(cls, name: str, order: int) -> Self:
+    def init(cls, name: str, order: int):
         return cls(name=name, order=order)
 
     def __str__(self) -> str:
@@ -34,7 +32,7 @@ class Type(models.Model):
     order = models.IntegerField(verbose_name="ordre", null=False, unique=True)
 
     @classmethod
-    def init(cls, name: str, order: int) -> Self:
+    def init(cls, name: str, order: int):
         return cls(name=name, order=order)
 
     def __str__(self) -> str:
@@ -50,7 +48,7 @@ class Ambiance(models.Model):
     name = models.CharField(verbose_name="libellé", max_length=255, null=False, unique=True)
 
     @classmethod
-    def init(cls, name: str) -> Self:
+    def init(cls, name: str):
         return cls(name=name)
 
     def __str__(self) -> str:
@@ -67,7 +65,7 @@ class Genre(models.Model):
     notes = models.TextField(verbose_name="notes", max_length=2048, null=False)
 
     @classmethod
-    def init(cls, name: str, notes: str) -> Self:
+    def init(cls, name: str, notes: str):
         return cls(name=name, notes=notes)
 
     def __str__(self) -> str:
@@ -83,7 +81,7 @@ class Editor(models.Model):
     name = models.CharField(verbose_name="nom", max_length=255, null=False, unique=True)
 
     @classmethod
-    def init(cls, name: str) -> Self:
+    def init(cls, name: str):
         return cls(name=name)
 
     def __str__(self) -> str:
@@ -99,7 +97,7 @@ class Tag(models.Model):
     name = models.CharField(verbose_name="nom", max_length=255, null=False, unique=True)
 
     @classmethod
-    def init(cls, name: str) -> Self:
+    def init(cls, name: str):
         return cls(name=name)
 
     def __str__(self) -> str:
@@ -147,7 +145,7 @@ class Game(models.Model):
         max_duration: int,
         editor: Editor,
         tag: Tag | None,
-    ) -> Self:
+    ):
         return cls(
             name=name,
             notes=notes,
