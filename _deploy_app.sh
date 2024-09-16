@@ -38,6 +38,7 @@ while getopts "htils:" opt; do
 done
 
 REPO_DIR="$HOME/crousplay"
+SOURCE_ENV_FILE="$HOME/env_crousplay.sh"
 DB_FILE="$REPO_DIR/db.sqlite3"
 TEMPLATES_DIR="$REPO_DIR/games/templates"
 WSGI_FILE="/var/www/$(whoami)_pythonanywhere_com_wsgi.py"
@@ -64,15 +65,24 @@ if [[ "$is_init" == 1 ]]; then
     if [ -f "$WSGI_FILE" ]; then
         rm "$WSGI_FILE"
     fi
+    if [ -f "$SOURCE_ENV_FILE" ]; then
+        rm "$SOURCE_ENV_FILE"
+    fi
 
     echo "import os" >> "$WSGI_FILE"
+    echo "export SOURCE_ENV_FILE='$secret_key'" >> "$SOURCE_ENV_FILE"
     echo "os.environ['CROUSPLAY_SECRET_KEY'] = '$secret_key'" >> "$WSGI_FILE"
     if [[ "$is_test" == 1 ]]; then
+        echo "export CROUSPLAY_DEBUG='true'" >> "$SOURCE_ENV_FILE"
         echo "os.environ['CROUSPLAY_DEBUG'] = 'true'" >> "$WSGI_FILE"
     fi
     if [[ "$log_sql" == 1 ]]; then
+        echo "export CROUSPLAY_LOG_SQL='true'" >> "$SOURCE_ENV_FILE"
         echo "os.environ['CROUSPLAY_LOG_SQL'] = 'true'" >> "$WSGI_FILE"
     fi
+    echo "export CROUSPLAY_DB_FILE='$DB_FILE'" >> "$SOURCE_ENV_FILE"
+    echo "export CROUSPLAY_TEMPLATES_DIR='$TEMPLATES_DIR'" >> "$SOURCE_ENV_FILE"
+    chmod +x "$SOURCE_ENV_FILE"
     echo "os.environ['CROUSPLAY_DB_FILE'] = '$DB_FILE'" >> "$WSGI_FILE"
     echo "os.environ['CROUSPLAY_TEMPLATES_DIR'] = '$TEMPLATES_DIR'" >> "$WSGI_FILE"
     echo "from crousplay.wsgi import application" >> "$WSGI_FILE"
@@ -83,6 +93,7 @@ echo "----------------------------------------------------------"
 echo "-- Migration base de donnee"
 echo "----------------------------------------------------------"
 echo "----------------------------------------------------------"
+source "$SOURCE_ENV_FILE"
 python3.10 manage.py migrate
 
 if [[ "$is_init" == 1 ]]; then
