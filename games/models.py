@@ -114,6 +114,7 @@ class Game(models.Model):
     notes = models.TextField(verbose_name="notes", max_length=512, null=False)
     box_img = models.CharField(verbose_name="url image boîte", max_length=2048, null=False)
     box_content_img = models.CharField(verbose_name="url image boîte contenu", max_length=2048, null=False)
+    rules_link = models.CharField(verbose_name="url vers les règles de jeu", max_length=2048, null=False)
     min_number_of_player = models.IntegerField(verbose_name="nombre de joueur minimum", null=False)
     max_number_of_player = models.IntegerField(verbose_name="nombre de joueur maximum", null=False)
     min_duration = models.IntegerField(verbose_name="durée minimum (minutes)", null=False)
@@ -139,6 +140,7 @@ class Game(models.Model):
         notes: str,
         box_img: str,
         box_content_img: str,
+        rules_link: str,
         min_number_of_player: int,
         max_number_of_player: int,
         min_duration: int,
@@ -151,6 +153,7 @@ class Game(models.Model):
             notes=notes,
             box_img=box_img,
             box_content_img=box_content_img,
+            rules_link=rules_link,
             min_number_of_player=min_number_of_player,
             max_number_of_player=max_number_of_player,
             min_duration=min_duration,

@@ -37,6 +37,7 @@ python -m venv venv # crée un environnement virtuel dans le dossier venv du ré
 pip install --editable .[dev]  # installe les dépendances (dev compris) en mode éditable
 python manage.py setup_fixtures  # créer les données de fixtures
 python manage.py makemigrations games  # crée les migrations de bdd
+python manage.py migrate  # exécute les migrations
 python manage.py runserver  # lance le serveur de test
 
 # pour les commandes python manage.py ..., pensez à faire source "$HOME/env_crousplay.sh" avant si vous etes sur le serveru pythonanywhere
