@@ -9,7 +9,7 @@ Appli web de recommandation de jeu de société
 - créer une console bash, et exécuter les commandes suivantes (certaines informations vous seront demandées pour la création de l'accès admin et vous devrez également noter la clef secrète générée):
 
 ```sh
-cd /var/www && git clone "https://github.com/alexandreseris/crousplay.git" && cd crousplay && ./deploy.sh -i
+cd "$HOME" && git clone "https://github.com/alexandreseris/crousplay.git" && cd crousplay && ./deploy.sh -i
 ```
 
 - puis redémarrer l'application web depuis la page de configuration pythonanywhere
@@ -19,7 +19,7 @@ cd /var/www && git clone "https://github.com/alexandreseris/crousplay.git" && cd
 - créer/reprendre une console bash et exécuter les commandes suivantes:
 
 ```sh
-cd /var/www && cd crousplay && ./deploy.sh
+cd "$HOME" && cd crousplay && ./deploy.sh
 ```
 
 - puis redémarrer l'application web depuis la page de configuration pythonanywhere
@@ -55,6 +55,8 @@ usage: ./deploy.sh [-h] [-t] [-i] [-l] [-s SECRET_KEY]
 
 ```text
 CROUSPLAY_SECRET_KEY: string => utilisé en interne par django, mettez une chaine aléatoire de 32 charactères par ex
+CROUSPLAY_DB_FILE: string => chemin vers le fichier sqlite
+CROUSPLAY_TEMPLATES_DIR: string => chemin vers le repertoire de templates de l'application
 CROUSPLAY_DEBUG: true|false [false] => permet de lancer l'appli en mode debug
 CROUSPLAY_LOG_SQL: true|false [false] => permet de logger les requetes SQL sur stdout
 CROUSPLAY_DONT_GENERATE_ALLOWED_HOSTS: true|false [false] => à passer à true pour le dev

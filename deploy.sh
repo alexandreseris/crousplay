@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -o errexit   # abort on nonzero exitstatus
+set -o nounset   # abort on unbound variable
+set -o pipefail  # don't hide errors within pipes
 
 usage() {
     echo "usage: $0 [-h] [-t] [-i] [-l] [-s SECRET_KEY]"
@@ -34,7 +37,8 @@ while getopts "htils:" opt; do
     esac
 done
 
-pushd /var/www/crousplay || exit 1
+REPO_DIR="$HOME/crousplay"
+pushd "$REPO_DIR" || exit 1
 
 echo "----------------------------------------------------------"
 echo "----------------------------------------------------------"

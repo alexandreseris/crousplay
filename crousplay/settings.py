@@ -27,6 +27,8 @@ SECRET_KEY = os.environ["CROUSPLAY_SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("CROUSPLAY_DEBUG", "false").lower() == "true"
 
+DB_FILE = Path(os.environ["CROUSPLAY_DB_FILE"])
+TEMPLATES_DIR = Path(os.environ["CROUSPLAY_TEMPLATES_DIR"])
 LOG_SQL = os.getenv("CROUSPLAY_LOG_SQL", "false").lower() == "true"
 DONT_GENERATE_ALLOWED_HOSTS = os.getenv("CROUSPLAY_DONT_GENERATE_ALLOWED_HOSTS", "false").lower() == "true"
 
@@ -80,10 +82,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "crousplay.urls"
 
+# https://docs.djangoproject.com/en/5.1/ref/settings/#templates
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [TEMPLATES_DIR],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -105,7 +108,7 @@ WSGI_APPLICATION = "crousplay.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": DB_FILE,
     }
 }
 
