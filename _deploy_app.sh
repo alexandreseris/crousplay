@@ -106,7 +106,7 @@ source "$SOURCE_ENV_FILE"
 python3.10 manage.py migrate
 
 if [[ "$is_init" == 1 ]]; then
-    if [[ ! -z "$su_user" ]] && [[ -z  "$su_password" ]] && [[ -z "$su_email" ]]; then
+    if [[ ! -z "$su_user" ]] && [[ ! -z  "$su_password" ]] && [[ ! -z "$su_email" ]]; then
         export DJANGO_SUPERUSER_USERNAME="$su_user"
         export DJANGO_SUPERUSER_PASSWORD="$su_password"
         export DJANGO_SUPERUSER_EMAIL="$su_email"
