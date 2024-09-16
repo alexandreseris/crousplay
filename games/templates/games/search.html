@@ -22,34 +22,36 @@
 
         <ul class="collection">
             {% for item, props in games %}
-                <li class="collection-item">
-                    <div class="card">
+                <li class="collection-item game_item">
+                    <div class="card game">
                         <div class="card-content">
                             <div class="game_name main_txt_color">{{ item.name|title }}</div>
                             <div class="editor second_txt_color">{{ item.editor.name|title }}</div>
-                            <div class="row">
-                                <div class="col s6 m6 l6">
-                                    <div class="row">
-                                        <div class="col s6 m6 l6">
-                                            <img class="box_img" src="{{ item.box_img }}" alt="Boite du jeu">
+                            <br>
+                            <div class="content">
+                                <div class="images">
+                                    <img class="box_img" src="{{ item.box_img }}" alt="Boite du jeu">
+                                    <img class="box_content_img" src="{{ item.box_content_img }}" alt="Contenu de la boite">
+                                    {% if item.tag %}
+                                        <div class="card underline tag main_txt_color">
+                                            <div class="card-content">
+                                                <p>{{ item.tag.name }}</p>
+                                            </div>
                                         </div>
-                                        <div class="col s6 m6 l6"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s6 m6 l6"></div>
-                                        <div class="col s6 m6 l6">
-                                            <img class="box_content_img" src="{{ item.box_content_img }}" alt="Contenu de la boite">
-                                        </div>
-                                    </div>
+                                    {% endif %}
                                 </div>
-                                <div class="col s6 m6 l6">
+                                <div class="details">
                                     <p class="notes main_txt_color">{{ item.notes }}</p>
                                     <br>
                                     <ul class="list_detail">
                                         <li><a href="{{ item.rules_link }}">Lien vers les règles</a></li>
+                                        <br>
                                         <li><span class="underline">{{ item.number_of_player }}</span></li>
+                                        <br>
                                         <li>Durée: <span class="underline">{{ item.duration }}</span></li>
+                                        <br>
                                         <li>Genre de jeu: <span class="underline">{{ item.genre_names }}</span></li>
+                                        <br>
                                         <li>Ambiance de jeu: <span class="underline">{{ item.ambiance_names }}</span></li>
                                     </ul>
                                     <br>
@@ -81,13 +83,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {% if item.tag %}
-                                <div class="card underline tag main_txt_color">
-                                    <div class="card-content">
-                                        <p>{{ item.tag.name }}</p>
-                                    </div>
-                                </div>
-                            {% endif %}
                         </div>
                     </div>
                 </li>
@@ -100,6 +95,7 @@
         --main-color: rgb(26, 36, 123);
         --second-color: rgb(59, 196, 238);
         --underline-color: rgb(172, 230, 249);
+        font-size: large;
     }
     .main_bk_color {
         background-color: var(--main-color);
@@ -113,10 +109,43 @@
     .underline {
         background-color: var(--underline-color);
     }
+    .game_item {
+        background-color: var(--main-color) !important;
+        margin: 10px !important;
+    }
+    .game {
+        font-size: large;
+    }
+    .content {
+        display: flex;
+        flex-direction: row;
+    }
+    .details {
+        padding-left: 10em;
+    }
+    .box_img {
+        object-fit: contain;
+        width: 250px;
+        height: 250px;
+    }
+    .box_content_img {
+        object-fit: contain;
+        width: 200px;
+        height: 200px;
+        position: relative;
+        bottom: -100px;
+    }
+    .tag {
+        width: 10em;
+        font-style: italic;
+        border-radius: 0 15px 15px 0 !important;
+        position: relative;
+        left: -44px;
+    }
     .game_name {
         text-transform: uppercase;
         font-weight: bold;
-        font-size: x-large;
+        font-size: xx-large;
     }
     .list_detail, .list_detail > li {
         list-style-type: disc !important;
@@ -125,20 +154,10 @@
         color: var(--second-color);
     }
     .editor {
-        font-size: larger;
+        font-size: x-large;
     }
     .notes {
         font-weight: bold;
-    }
-    .box_img {
-        object-fit: contain;
-        width: 200px;
-        height: 200px;
-    }
-    .box_content_img {
-        object-fit: contain;
-        width: 200px;
-        height: 200px;
     }
     .checkbox {
         color: inherit !important;
@@ -153,9 +172,6 @@
     }
     [type="checkbox"]:not(:checked):disabled + span:not(.lever)::before {
         background-color: var(--second-color);
-    }
-    .tag {
-        width: 10em;
     }
 </style>
 </html>
