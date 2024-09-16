@@ -43,15 +43,12 @@ python manage.py runserver  # lance le serveur de test
 # pour les commandes python manage.py ..., pensez à faire source "$HOME/env_crousplay.sh" avant si vous etes sur le serveru pythonanywhere
 ```
 
-### deploy.sh synthax
+./deploy.sh est utilisé pour le déploiement, utilisez -h pour obtenir la synthax
+
+### Déploiement rapide sur un serveur de dev
 
 ```sh
-usage: ./deploy.sh [-h] [-t] [-i] [-l] [-s SECRET_KEY]
-   -h: show this message and exit
-   -t: enable test mode
-   -i: enable init mode
-   -l: enable sql querry logging
-   -s SECRET_KEY: provide a custom secret key
+cd "$HOME" && git clone "https://github.com/alexandreseris/crousplay.git" && cd crousplay && ./deploy.sh -i -t -s "clef_secrete" -U "nom_admin" -P "pwd_admin" -E "email_admin"
 ```
 
 ### Environnement

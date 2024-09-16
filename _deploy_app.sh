@@ -18,7 +18,10 @@ is_test=0
 is_init=0
 log_sql=0
 secret_key=""
-while getopts "htils:" opt; do
+su_user=""
+su_password=""
+su_email=""
+while getopts "htils:U:P:E:" opt; do
     case "$opt" in
         h)
             usage
@@ -30,6 +33,12 @@ while getopts "htils:" opt; do
         l)  log_sql=1
             ;;
         s)  secret_key="$OPTARG"
+            ;;
+        U)  su_user="$OPTARG"
+            ;;
+        P)  su_password="$OPTARG"
+            ;;
+        E)  su_email="$OPTARG"
             ;;
         *)
             usage
@@ -97,6 +106,12 @@ source "$SOURCE_ENV_FILE"
 python3.10 manage.py migrate
 
 if [[ "$is_init" == 1 ]]; then
+    if [[ ! -z "$su_user" ]] && [[ -z  "$su_password" ]] && [[ -z "$su_email" ]]; then
+        export DJANGO_SUPERUSER_USERNAME="$su_user"
+        export DJANGO_SUPERUSER_PASSWORD="$su_password"
+        export DJANGO_SUPERUSER_EMAIL="$su_email"
+        python3.10 manage.py createsuperuser --noinput
+    fi
     echo "----------------------------------------------------------"
     echo "----------------------------------------------------------"
     echo "/!\ Création de l'utilisateur admin /!\\"
