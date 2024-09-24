@@ -121,19 +121,28 @@ echo "----------------------------------------------------------"
 python3.10 manage.py migrate
 
 if [[ "$is_init" == 1 ]]; then
+    if [[ "$is_test" == 1 ]]; then
+        echo "----------------------------------------------------------"
+        echo "----------------------------------------------------------"
+        echo "-- Création des fixtures"
+        echo "----------------------------------------------------------"
+        echo "----------------------------------------------------------"
+        python3.10 manage.py setup_fixtures
+    fi
     if [[ ! -z "$su_user" ]] && [[ ! -z  "$su_password" ]] && [[ ! -z "$su_email" ]]; then
         export DJANGO_SUPERUSER_USERNAME="$su_user"
         export DJANGO_SUPERUSER_PASSWORD="$su_password"
         export DJANGO_SUPERUSER_EMAIL="$su_email"
         python3.10 manage.py createsuperuser --noinput
+    else
+        echo "----------------------------------------------------------"
+        echo "----------------------------------------------------------"
+        echo "/!\ Création de l'utilisateur admin /!\\"
+        echo "Merci de répondre aux questions et bien prendre note de l'utilisateur et mot de passe qui sera utilisable pour l'accès à la page /admin"
+        echo "----------------------------------------------------------"
+        echo "----------------------------------------------------------"
+        python3.10 manage.py createsuperuser
     fi
-    echo "----------------------------------------------------------"
-    echo "----------------------------------------------------------"
-    echo "/!\ Création de l'utilisateur admin /!\\"
-    echo "Merci de répondre aux questions et bien prendre note de l'utilisateur et mot de passe qui sera utilisable pour l'accès à la page /admin"
-    echo "----------------------------------------------------------"
-    echo "----------------------------------------------------------"
-    python3.10 manage.py createsuperuser
 fi
 
 popd || exit 1

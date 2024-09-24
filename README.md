@@ -57,6 +57,7 @@ cd "$HOME" && git clone "https://github.com/alexandreseris/crousplay.git" && cd 
 CROUSPLAY_SECRET_KEY: string => utilisé en interne par django, mettez une chaine aléatoire de 32 charactères par ex
 CROUSPLAY_DB_FILE: string => chemin vers le fichier sqlite
 CROUSPLAY_TEMPLATES_DIR: string => chemin vers le repertoire de templates de l'application
+CROUSPLAY_STATIC_DIR: string => chemin vers le repertoire où seront stockés les fichiers statics
 CROUSPLAY_DEBUG: true|false [false] => permet de lancer l'appli en mode debug
 CROUSPLAY_LOG_SQL: true|false [false] => permet de logger les requetes SQL sur stdout
 CROUSPLAY_DONT_GENERATE_ALLOWED_HOSTS: true|false [false] => à passer à true pour le dev

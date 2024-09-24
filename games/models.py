@@ -2,15 +2,16 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 
-def meta(friendly_name: str):
+def meta(friendly_name: str, friendly_name_plural: str):
     class Meta:
         verbose_name = friendly_name
+        verbose_name_plural = friendly_name_plural
 
     return Meta
 
 
 class Level(models.Model):
-    Meta = meta("Niveau")
+    Meta = meta("niveau", "niveaux")
     name = models.CharField(verbose_name="libellé", max_length=255, null=False, unique=True)
     order = models.IntegerField(verbose_name="ordre", null=False, unique=True)
 
@@ -27,7 +28,7 @@ class Level(models.Model):
 
 
 class Type(models.Model):
-    Meta = meta("Type")
+    Meta = meta("type", "types")
     name = models.CharField(verbose_name="libellé", max_length=255, null=False, unique=True)
     order = models.IntegerField(verbose_name="ordre", null=False, unique=True)
 
@@ -44,7 +45,7 @@ class Type(models.Model):
 
 
 class Ambiance(models.Model):
-    Meta = meta("Ambiance recherchée")
+    Meta = meta("ambiance recherchée", "ambiances recherchées")
     name = models.CharField(verbose_name="libellé", max_length=255, null=False, unique=True)
 
     @classmethod
@@ -60,7 +61,7 @@ class Ambiance(models.Model):
 
 
 class Genre(models.Model):
-    Meta = meta("Genre")
+    Meta = meta("genre", "genres")
     name = models.CharField(verbose_name="libellé", max_length=255, null=False, unique=True)
     notes = models.TextField(verbose_name="notes", max_length=2048, null=False)
 
@@ -77,7 +78,7 @@ class Genre(models.Model):
 
 
 class Editor(models.Model):
-    Meta = meta("Editeur")
+    Meta = meta("éditeur", "éditeurs")
     name = models.CharField(verbose_name="nom", max_length=255, null=False, unique=True)
 
     @classmethod
@@ -93,7 +94,7 @@ class Editor(models.Model):
 
 
 class Tag(models.Model):
-    Meta = meta("Tag")
+    Meta = meta("tag", "tags")
     name = models.CharField(verbose_name="nom", max_length=255, null=False, unique=True)
 
     @classmethod
@@ -109,7 +110,7 @@ class Tag(models.Model):
 
 
 class Game(models.Model):
-    Meta = meta("Jeu")
+    Meta = meta("jeu", "jeux")
     name = models.CharField(verbose_name="nom", max_length=255, null=False, unique=True)
     notes = models.TextField(verbose_name="notes", max_length=512, null=False)
     box_img = models.CharField(verbose_name="url image boîte", max_length=2048, null=False)

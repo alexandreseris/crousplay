@@ -29,7 +29,9 @@ DEBUG = os.getenv("CROUSPLAY_DEBUG", "false").lower() == "true"
 
 DB_FILE = Path(os.environ["CROUSPLAY_DB_FILE"])
 TEMPLATES_DIR = Path(os.environ["CROUSPLAY_TEMPLATES_DIR"])
-STATIC_ROOT = Path(os.environ["CROUSPLAY_STATIC_DIR"])
+STATIC_ROOT = None
+if not DEBUG:
+    STATIC_ROOT = Path(os.environ["CROUSPLAY_STATIC_DIR"])
 LOG_SQL = os.getenv("CROUSPLAY_LOG_SQL", "false").lower() == "true"
 DONT_GENERATE_ALLOWED_HOSTS = os.getenv("CROUSPLAY_DONT_GENERATE_ALLOWED_HOSTS", "false").lower() == "true"
 
