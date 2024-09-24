@@ -48,7 +48,7 @@ python manage.py runserver  # lance le serveur de test
 ### Déploiement rapide sur un serveur de dev
 
 ```sh
-cd "$HOME" && git clone "https://github.com/alexandreseris/crousplay.git" && cd crousplay && ./deploy.sh -i -t -s "clef_secrete" -U "nom_admin" -P "pwd_admin" -E "email_admin"
+cd "$HOME" && git clone "https://github.com/alexandreseris/crousplay.git" && cd crousplay && ./deploy.sh -i -t -s "clef_secrete" -U "nom_admin" -P "pwd_admin" -E "email_admin" && source ../env_crousplay.sh
 ```
 
 ### Environnement

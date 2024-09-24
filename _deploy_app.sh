@@ -48,6 +48,7 @@ done
 
 REPO_DIR="$HOME/crousplay"
 SOURCE_ENV_FILE="$HOME/env_crousplay.sh"
+STATIC_DIR="$HOME/crousplay_static"
 DB_FILE="$REPO_DIR/db.sqlite3"
 TEMPLATES_DIR="$REPO_DIR/games/templates"
 WSGI_FILE="/var/www/$(whoami)_pythonanywhere_com_wsgi.py"
@@ -71,6 +72,10 @@ if [[ "$is_init" == 1 ]]; then
         echo "----------------------------------------------------------"
     fi
 
+    if [ ! -d "$STATIC_DIR" ]; then
+        mkdir -p $STATIC_DIR
+    fi
+
     if [ -f "$WSGI_FILE" ]; then
         rm "$WSGI_FILE"
     fi
@@ -79,8 +84,10 @@ if [[ "$is_init" == 1 ]]; then
     fi
 
     echo "import os" >> "$WSGI_FILE"
-    echo "export SOURCE_ENV_FILE='$secret_key'" >> "$SOURCE_ENV_FILE"
     echo "os.environ['CROUSPLAY_SECRET_KEY'] = '$secret_key'" >> "$WSGI_FILE"
+    echo "os.environ['CROUSPLAY_STATIC_DIR'] = '$STATIC_DIR'" >> "$WSGI_FILE"
+    echo "export CROUSPLAY_SECRET_KEY='$secret_key'" >> "$SOURCE_ENV_FILE"
+    echo "export CROUSPLAY_STATIC_DIR='$STATIC_DIR'" >> "$SOURCE_ENV_FILE"
     if [[ "$is_test" == 1 ]]; then
         echo "export CROUSPLAY_DEBUG='true'" >> "$SOURCE_ENV_FILE"
         echo "os.environ['CROUSPLAY_DEBUG'] = 'true'" >> "$WSGI_FILE"
@@ -97,12 +104,20 @@ if [[ "$is_init" == 1 ]]; then
     echo "from crousplay.wsgi import application" >> "$WSGI_FILE"
 fi
 
+source "$SOURCE_ENV_FILE"
+
+echo "----------------------------------------------------------"
+echo "----------------------------------------------------------"
+echo "-- Création/maj des fichiers statiques"
+echo "----------------------------------------------------------"
+echo "----------------------------------------------------------"
+python3.10 manage.py collectstatic
+
 echo "----------------------------------------------------------"
 echo "----------------------------------------------------------"
 echo "-- Migration base de donnee"
 echo "----------------------------------------------------------"
 echo "----------------------------------------------------------"
-source "$SOURCE_ENV_FILE"
 python3.10 manage.py migrate
 
 if [[ "$is_init" == 1 ]]; then
