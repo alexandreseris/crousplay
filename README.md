@@ -22,6 +22,7 @@ cd "$HOME" && git clone "https://github.com/alexandreseris/crousplay.git" && cd 
 cd "$HOME" && cd crousplay && ./deploy.sh
 ```
 
+- dans la page de configuration pythonanywhere sur la section `Static files`, créer une entrée pour l'url `/static/` sur le répertoire `/var/www/crousplay_static/`
 - puis redémarrer l'application web depuis la page de configuration pythonanywhere
 
 ## Notes

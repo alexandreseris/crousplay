@@ -48,9 +48,9 @@ done
 
 REPO_DIR="$HOME/crousplay"
 SOURCE_ENV_FILE="$HOME/env_crousplay.sh"
-STATIC_DIR="$HOME/crousplay_static"
 DB_FILE="$REPO_DIR/db.sqlite3"
 TEMPLATES_DIR="$REPO_DIR/games/templates"
+STATIC_DIR="/var/www/crousplay_static"
 WSGI_FILE="/var/www/$(whoami)_pythonanywhere_com_wsgi.py"
 
 pushd "$HOME/crousplay" || exit 1
