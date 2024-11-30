@@ -131,3 +131,8 @@ def list_all(request: HttpRequest) -> HttpResponse:
             request,
         )
     )
+
+
+def about(request: HttpRequest) -> HttpResponse:
+    template = loader.get_template("games/about.html")
+    return HttpResponse(template.render({}, request))

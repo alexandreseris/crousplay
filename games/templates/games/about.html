@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CROUS Play - À propos</title>
+    <link rel="icon"
+        href="data:image/svg+xml;base64,PHN2ZyBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIyNTYiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMSI+PC9jaXJjbGU+PGcgY2xhc3M9IiIgc3R5bGU9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSI+PHBhdGggZD0iTTQ1OC45MTUgMzA3LjcwNWMwIDYyLjYzLTU0IDkxLjMyLTkxLjM0IDkxLjM0LTQxLjY0IDAtNzMuMS0xOC44Ni05MS44My0zNC4yNiAyLjQ3IDUwLjk1IDE0LjUzIDg3LjM1IDY4LjY1IDExNmgtMTc2Ljc5YzU0LjEyLTI4LjY1IDY2LjE4LTY1LjA1IDY4LjY1LTExNi0xOC43MyAxNS4zOS01MC4yIDM0LjI4LTkxLjgzIDM0LjI2LTM3LjI5IDAtOTEuMzQtMjguNzEtOTEuMzQtOTEuMzQgMC0xMTQuNDcgODAuNjQtODMuMzIgMjAyLjkxLTI3Ni40OSAxMjIuMjggMTkzLjE3IDIwMi45MiAxNjIuMDMgMjAyLjkyIDI3Ni40OXoiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjUuNiwgMjUuNikgc2NhbGUoMC45LCAwLjkpIHJvdGF0ZSgwLCAyNTYsIDI1Nikgc2tld1goMCkgc2tld1koMCkiPjwvcGF0aD48L2c+PC9zdmc+">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-wrapper main_bk_color">
+                <span class="brand-logo center">CROUS Play</span>
+                <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="/"><i class="material-icons" title="Nouvelle recherche">search</i></a></li>
+                    <li><a href="/list"><i class="material-icons" title="Tous les jeux">list</i></a></li>
+                    <li class="active"><a href="/about"><i class="material-icons" title="À propos">info</i></a></li>
+                </ul>
+            </div>
+        </nav>
+        <ul class="sidenav" id="mobile-menu">
+            <li><a href="/"><i class="material-icons">search</i> Nouvelle recherche</a></li>
+            <li><a href="/list"><i class="material-icons">list</i> Tous les jeux</a></li>
+            <li class="active"><a href="/about"><i class="material-icons">info</i> À propos</a></li>
+        </ul>
+
+        <div class="row">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Icône du site</span>
+                    <p>Icône du site mise à disposition par Skoll sous la licence CC BY 3.0, <a
+                            href="https://game-icons.net/1x1/skoll/spades.html">disponnible sur le site
+                            game-icons.net</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var mobileMenuElems = document.querySelectorAll('.sidenav');
+        var mobileMenuInstances = M.Sidenav.init(mobileMenuElems, {});
+    });
+</script>
+
+
+<style>
+    body {
+        --main-color: rgb(26, 36, 123);
+        --second-color: rgb(59, 196, 238);
+        --error-color: rgb(200, 0, 0);
+    }
+
+    .main_bk_color {
+        background-color: var(--main-color);
+    }
+
+    .title {
+        text-align: center;
+    }
+</style>
+
+</html>

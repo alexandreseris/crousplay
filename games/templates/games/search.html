@@ -1,95 +1,116 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CROUS Play - Votre recherche</title>
+
+    <title>CROUS Play - Résultats</title>
+    <link rel="icon"
+        href="data:image/svg+xml;base64,PHN2ZyBzdHlsZT0iaGVpZ2h0OiA1MTJweDsgd2lkdGg6IDUxMnB4OyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIyNTYiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMSI+PC9jaXJjbGU+PGcgY2xhc3M9IiIgc3R5bGU9IiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwwKSI+PHBhdGggZD0iTTQ1OC45MTUgMzA3LjcwNWMwIDYyLjYzLTU0IDkxLjMyLTkxLjM0IDkxLjM0LTQxLjY0IDAtNzMuMS0xOC44Ni05MS44My0zNC4yNiAyLjQ3IDUwLjk1IDE0LjUzIDg3LjM1IDY4LjY1IDExNmgtMTc2Ljc5YzU0LjEyLTI4LjY1IDY2LjE4LTY1LjA1IDY4LjY1LTExNi0xOC43MyAxNS4zOS01MC4yIDM0LjI4LTkxLjgzIDM0LjI2LTM3LjI5IDAtOTEuMzQtMjguNzEtOTEuMzQtOTEuMzQgMC0xMTQuNDcgODAuNjQtODMuMzIgMjAyLjkxLTI3Ni40OSAxMjIuMjggMTkzLjE3IDIwMi45MiAxNjIuMDMgMjAyLjkyIDI3Ni40OXoiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjUuNiwgMjUuNikgc2NhbGUoMC45LCAwLjkpIHJvdGF0ZSgwLCAyNTYsIDI1Nikgc2tld1goMCkgc2tld1koMCkiPjwvcGF0aD48L2c+PC9zdmc+">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link rel="icon" href="data:;base64,=">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <nav>
             <div class="nav-wrapper main_bk_color">
-                <span class="brand-logo center">Résultats de votre recherche</span>
+                <span class="brand-logo center">CROUS Play</span>
+                <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li><a href="/">Nouvelle recherche</a></li>
-                    <li><a href="/list">Tous les jeux</a></li>
+                    <li><a href="/"><i class="material-icons" title="Nouvelle recherche">search</i></a></li>
+                    <li class="active"><a href="/list"><i class="material-icons" title="Résultats">list</i></a></li>
+                    <li><a href="/about"><i class="material-icons" title="À propos">info</i></a></li>
                 </ul>
             </div>
         </nav>
+        <ul class="sidenav" id="mobile-menu">
+            <li><a href="/"><i class="material-icons">search</i> Nouvelle recherche</a></li>
+            <li class="active"><a href="/list"><i class="material-icons">list</i> Résultats</a></li>
+            <li><a href="/about"><i class="material-icons">info</i> À propos</a></li>
+        </ul>
 
         <ul class="collection">
             {% for item, props in games %}
-                <li class="collection-item game_item">
-                    <div class="card game">
-                        <div class="card-content">
-                            <div class="game_name main_txt_color">{{ item.name|title }}</div>
-                            <div class="editor second_txt_color">{{ item.editor.name|title }}</div>
-                            <br>
-                            <div class="content">
-                                <div class="images">
-                                    <img class="box_img" src="{{ item.box_img }}" alt="Boite du jeu">
-                                    <img class="box_content_img" src="{{ item.box_content_img }}" alt="Contenu de la boite">
-                                    {% if item.tag %}
-                                        <div class="card underline tag main_txt_color">
-                                            <div class="card-content">
-                                                <p>{{ item.tag.name }}</p>
-                                            </div>
-                                        </div>
-                                    {% endif %}
+            <li class="collection-item game_item">
+                <div class="card game">
+                    <div class="card-content">
+                        <div class="game_name main_txt_color">{{ item.name|title }}</div>
+                        <div class="editor second_txt_color">{{ item.editor.name|title }}</div>
+                        <br>
+                        <div class="content">
+                            {% if item.tag %}
+                            <div class="card underline tag main_txt_color">
+                                <div class="card-content">
+                                    <p>{{ item.tag.name }}</p>
                                 </div>
-                                <div class="details">
-                                    <p class="notes main_txt_color">{{ item.notes }}</p>
+                            </div>
+                            {% endif %}
+                            <div class="images">
+                                <img class="box_img" src="{{ item.box_img }}" alt="Boite du jeu">
+                                <img class="box_content_img" src="{{ item.box_content_img }}" alt="Contenu de la boite">
+                            </div>
+                            <div class="details">
+                                <p class="notes main_txt_color">{{ item.notes }}</p>
+                                <br>
+                                <ul class="list_detail">
+                                    <li><a href="{{ item.rules_link }}">Lien vers les règles</a></li>
                                     <br>
-                                    <ul class="list_detail">
-                                        <li><a href="{{ item.rules_link }}">Lien vers les règles</a></li>
-                                        <br>
-                                        <li><span class="underline">{{ item.number_of_player }}</span></li>
-                                        <br>
-                                        <li>Durée: <span class="underline">{{ item.duration }}</span></li>
-                                        <br>
-                                        <li>Genre de jeu: <span class="underline">{{ item.genre_names }}</span></li>
-                                        <br>
-                                        <li>Ambiance de jeu: <span class="underline">{{ item.ambiance_names }}</span></li>
-                                    </ul>
+                                    <li><span class="underline">{{ item.number_of_player }}</span></li>
                                     <br>
-                                    <div class="row">
-                                        <div class="col s6 m6 l6">
-                                            {% for level in props.levels %}
-                                                <label class="checkbox">
-                                                    {% if level.has %}
-                                                        <input type="checkbox" checked disabled />
-                                                    {% else %}
-                                                        <input type="checkbox" disabled />
-                                                    {% endif %}
-                                                    <span>{{ level.name }}</span>
-                                                </label>
-                                            {% endfor %}
-                                        </div>
-                                        <div class="col s6 m6 l6">
-                                            {% for type in props.types %}
-                                                <label class="checkbox">
-                                                    {% if type.has %}
-                                                        <input type="checkbox" checked disabled />
-                                                    {% else %}
-                                                        <input type="checkbox" disabled />
-                                                    {% endif %}
-                                                    <span>{{ type.name }}</span>
-                                                </label>
-                                            {% endfor %}
-                                        </div>
+                                    <li>Durée: <span class="underline">{{ item.duration }}</span></li>
+                                    <br>
+                                    <li>Genre de jeu: <span class="underline">{{ item.genre_names }}</span></li>
+                                    <br>
+                                    <li>Ambiance de jeu: <span class="underline">{{ item.ambiance_names }}</span></li>
+                                </ul>
+                                <br>
+                                <div class="row levels_n_types">
+                                    <div class="col s6 m6 l6">
+                                        {% for level in props.levels %}
+                                        <label class="checkbox">
+                                            {% if level.has %}
+                                            <input type="checkbox" checked disabled />
+                                            {% else %}
+                                            <input type="checkbox" disabled />
+                                            {% endif %}
+                                            <span>{{ level.name }}</span>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col s6 m6 l6">
+                                        {% for type in props.types %}
+                                        <label class="checkbox">
+                                            {% if type.has %}
+                                            <input type="checkbox" checked disabled />
+                                            {% else %}
+                                            <input type="checkbox" disabled />
+                                            {% endif %}
+                                            <span>{{ type.name }}</span>
+                                        </label>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </li>
+                </div>
+            </li>
             {% endfor %}
         </ul>
     </div>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var mobileMenuElems = document.querySelectorAll('.sidenav');
+        var mobileMenuInstances = M.Sidenav.init(mobileMenuElems, {});
+    });
+</script>
+
 <style>
     body {
         --main-color: rgb(26, 36, 123);
@@ -97,81 +118,176 @@
         --underline-color: rgb(172, 230, 249);
         font-size: large;
     }
+
     .main_bk_color {
         background-color: var(--main-color);
     }
+
     .main_txt_color {
         color: var(--main-color);
     }
+
     .second_txt_color {
         color: var(--second-color);
     }
+
     .underline {
         background-color: var(--underline-color);
     }
+
     .game_item {
         background-color: var(--main-color) !important;
         margin: 10px !important;
     }
+
     .game {
         font-size: large;
     }
-    .content {
-        display: flex;
-        flex-direction: row;
+
+    .tag {
+        width: 10em;
+        max-height: 6em;
+        font-style: italic;
+        position: absolute;
     }
-    .details {
-        padding-left: 10em;
-    }
+
     .box_img {
         object-fit: contain;
         width: 250px;
         height: 250px;
     }
+
     .box_content_img {
         object-fit: contain;
         width: 200px;
         height: 200px;
         position: relative;
-        bottom: -100px;
+        bottom: -80px;
     }
-    .tag {
-        width: 10em;
-        font-style: italic;
-        border-radius: 0 15px 15px 0 !important;
-        position: relative;
-        left: -44px;
+
+    @media (max-width: 700px) {
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tag {
+            border-radius: 15px 15px 15px 15px !important;
+            position: initial;
+        }
+
+        .box_img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .box_content_img {
+            position: initial;
+            bottom: initial;
+        }
+
+        .images {
+            display: flex;
+            flex-direction: column;
+        }
     }
+
+    @media (min-width: 700px) {
+        .content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .images {
+            display: flex;
+            align-self: center;
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+        }
+
+        .tag {
+            border-radius: 15px 0 0 15px !important;
+            right: -20px;
+            top: 0px;
+        }
+
+        .levels_n_types {
+            padding-top: 1em;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        .content {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .details {
+            display: initial;
+            align-self: initial;
+            padding-left: 10em;
+        }
+
+        .tag {
+            border-radius: 0 15px 15px 0 !important;
+            left: -20px;
+            bottom: 0px;
+            top: initial;
+            right: initial;
+        }
+
+        .levels_n_types {
+            padding-top: initial;
+        }
+    }
+
     .game_name {
         text-transform: uppercase;
         font-weight: bold;
         font-size: xx-large;
     }
-    .list_detail, .list_detail > li {
+
+    .list_detail,
+    .list_detail>li {
         list-style-type: disc !important;
     }
-    .list_detail > li::marker {
+
+    .list_detail>li::marker {
         color: var(--second-color);
     }
+
     .editor {
         font-size: x-large;
     }
+
     .notes {
         font-weight: bold;
     }
+
     .checkbox {
         color: inherit !important;
         display: block;
     }
-    .checkbox > [type="checkbox"]:not(:checked)+span::before {
+
+    .checkbox>[type="checkbox"]:not(:checked)+span::before {
         content: initial !important;
     }
-    [type="checkbox"]:checked:disabled + span::before {
-        border-right: 2px solid var(--second-color);;
-        border-bottom: 2px solid var(--second-color);;
+
+    [type="checkbox"]:checked:disabled+span::before {
+        border-right: 2px solid var(--second-color);
+        ;
+        border-bottom: 2px solid var(--second-color);
+        ;
     }
-    [type="checkbox"]:not(:checked):disabled + span:not(.lever)::before {
+
+    [type="checkbox"]:not(:checked):disabled+span:not(.lever)::before {
         background-color: var(--second-color);
     }
 </style>
+
 </html>
