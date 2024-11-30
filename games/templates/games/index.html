@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,49 +25,49 @@
             <form method="get" action="/result" class="col s12" id="searchform">
                 <div class="input-field">
                     <label for="players">Nombre de joueur</label>
-                    <input id="players" name="players" class="validate" type="number" min="1" max="100" required />
+                    <input id="players" name="players" class="validate" type="number" min="1" max="100" />
                 </div>
                 <div class="input-field">
                     <label for="duration">Durée (en minute)</label>
-                    <input id="duration" name="duration" class="validate" type="number" min="1" max="100" required />
+                    <input id="duration" name="duration" class="validate" type="number" min="1" max="100" />
                 </div>
                 <div class="input-field">
                     <label for="level">Niveau des joueurs</label>
-                    <select id="level" name="level" required>
+                    <select id="level" name="level">
                         <option value="" disabled selected>...</option>
                         {% for item in levels %}
-                            <option value="{{ item.name }}">{{ item.name|title }}</option>
+                        <option value="{{ item.name }}">{{ item.name|title }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="input-field">
                     <label for="type">Type de jeu</label>
-                    <select id="type" name="type" required>
+                    <select id="type" name="type">
                         <option value="" disabled selected>...</option>
                         {% for item in types %}
-                            <option value="{{ item.name }}">{{ item.name|title }}</option>
+                        <option value="{{ item.name }}">{{ item.name|title }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="input-field">
                     <label for="ambiances">Ambiances recherchées</label>
-                    <select id="ambiances" name="ambiances" required multiple>
+                    <select id="ambiances" name="ambiances" multiple>
                         {% for item in ambiances %}
-                            <option value="{{ item.name }}">{{ item.name|title }}</option>
+                        <option value="{{ item.name }}">{{ item.name|title }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="input-field">
                     <label for="genres">Genres de jeu</label>
-                    <select id="genres" name="genres" required multiple>
+                    <select id="genres" name="genres" multiple>
                         {% for item in genres %}
-                            <option value="{{ item.name }}">{{ item.name|title }}</option>
+                        <option value="{{ item.name }}">{{ item.name|title }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="input-field">
                     <button class="btn waves-effect waves-light second_bk" type="submit">Rechercher</button>
-                    <span id="errormsg">Merci de renseigner tous les champs du formulaire</span>
+                    <span id="errormsg">Merci de corriger les champs du formulaire en erreur</span>
                 </div>
             </form>
         </div>
@@ -117,12 +118,15 @@
         --second-color: rgb(59, 196, 238);
         --error-color: rgb(200, 0, 0);
     }
+
     .main_bk {
         background-color: var(--main-color);
     }
+
     .second_bk {
         background-color: var(--second-color);
     }
+
     .title {
         text-align: center;
     }
@@ -130,6 +134,7 @@
     .input-field label {
         position: relative;
     }
+
     #errormsg {
         display: none;
         padding-left: 3em;

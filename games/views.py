@@ -1,5 +1,6 @@
 from collections.abc import Iterable
 from dataclasses import dataclass
+from typing import TypeVar
 
 from django.core.exceptions import SuspiciousOperation
 from django.http import HttpRequest, HttpResponse, QueryDict
@@ -8,7 +9,7 @@ from django.template import loader
 from games import models
 
 
-def search_page(request: HttpRequest):
+def search_page(request: HttpRequest) -> HttpResponse:
     template = loader.get_template("games/index.html")
     return HttpResponse(
         template.render(
@@ -23,26 +24,46 @@ def search_page(request: HttpRequest):
     )
 
 
+T = TypeVar("T")
+
+
+def extract_param_from_query(query: QueryDict, propname: str, type: type[T]) -> T | None:
+    lookup: str | None = query.getlist(propname, [None])[0]
+    if lookup:
+        return type(lookup)  # type: ignore
+    return None
+
+
 @dataclass
 class SearchParam:
-    players: int
-    duration: int
-    level: str
-    type: str
-    ambiances: list[str]
-    genres: list[str]
+    players: int | None
+    duration: int | None
+    level: str | None
+    type: str | None
+    ambiances: list[str] | None
+    genres: list[str] | None
 
     @classmethod
     def from_querydict(cls, query: QueryDict):
         try:
-            return cls(
-                players=int(query.getlist("players")[0]),
-                duration=int(query.getlist("duration")[0]),
-                level=query.getlist("level")[0],
-                type=query.getlist("type")[0],
-                ambiances=query.getlist("ambiances"),
-                genres=query.getlist("genres"),
+            obj = cls(
+                players=extract_param_from_query(query, "players", int),
+                duration=extract_param_from_query(query, "duration", int),
+                level=extract_param_from_query(query, "level", str),
+                type=extract_param_from_query(query, "type", str),
+                ambiances=query.getlist("ambiances", None),
+                genres=query.getlist("genres", None),
             )
+            if (
+                not obj.players
+                and not obj.duration
+                and not obj.level
+                and not obj.type
+                and not obj.ambiances
+                and not obj.genres
+            ):
+                raise ValueError("missing param")
+            return obj
         except Exception:
             raise SuspiciousOperation("wrong parameters")
 
@@ -80,7 +101,7 @@ class GameProperties:
             yield game, props
 
 
-def search_result(request: HttpRequest):
+def search_result(request: HttpRequest) -> HttpResponse:
     params = SearchParam.from_querydict(request.GET)
     games = models.Game.search(
         players=params.players,
@@ -100,7 +121,7 @@ def search_result(request: HttpRequest):
     )
 
 
-def list_all(request: HttpRequest):
+def list_all(request: HttpRequest) -> HttpResponse:
     games = models.Game.all()
     games_data = GameProperties.from_games(games)
     template = loader.get_template("games/search.html")

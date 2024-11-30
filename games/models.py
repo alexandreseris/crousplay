@@ -175,17 +175,29 @@ class Game(models.Model):
         return cls.objects.order_by("name").all()
 
     @classmethod
-    def search(cls, players: int, duration: int, level: str, type: str, ambiances: list[str], genres: list[str]):
-        return cls.objects.order_by("name").filter(
-            min_number_of_player__lte=players,
-            max_number_of_player__gte=players,
-            min_duration__lte=duration,
-            max_duration__gte=duration,
-            levels__name=level,
-            types__name=type,
-            ambiances__name__in=ambiances,
-            genres__name__in=genres,
-        )
+    def search(
+        cls,
+        players: int | None,
+        duration: int | None,
+        level: str | None,
+        type: str | None,
+        ambiances: list[str] | None,
+        genres: list[str] | None,
+    ):
+        query = cls.objects.order_by("name")
+        if players:
+            query = query.filter(min_number_of_player__lte=players, max_number_of_player__gte=players)
+        if duration:
+            query = query.filter(min_duration__lte=duration, max_duration__gte=duration)
+        if level:
+            query = query.filter(levels__name=level)
+        if type:
+            query = query.filter(types__name=type)
+        if ambiances:
+            query = query.filter(ambiances__name__in=ambiances)
+        if genres:
+            query = query.filter(genres__name__in=genres)
+        return query
 
     def number_of_player(self):
         if self.min_number_of_player == self.max_number_of_player:
