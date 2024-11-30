@@ -54,15 +54,6 @@ class SearchParam:
                 ambiances=query.getlist("ambiances", None),
                 genres=query.getlist("genres", None),
             )
-            if (
-                not obj.players
-                and not obj.duration
-                and not obj.level
-                and not obj.type
-                and not obj.ambiances
-                and not obj.genres
-            ):
-                raise ValueError("missing param")
             return obj
         except Exception:
             raise SuspiciousOperation("wrong parameters")
